@@ -25,7 +25,7 @@ public class RateController {
     @Autowired
     private CbrClient cbrClient;
 
-    @RequestMapping("/rate/{code}/{date}")
+    @RequestMapping("api/rate/{code}/{date}")
     public Object rateWithDate(@PathVariable("code") String code, @PathVariable(value = "date") String date) throws Exception {
         log.info("rateWithDate code [{}], date [{}]", code, date);
         String a = cbrClient.getRate(code, getXMLGregorianCalendarFromDate(date));
@@ -35,7 +35,7 @@ public class RateController {
         return new RateResponse(code, a, date);
     }
 
-    @RequestMapping("/rate/{code}")
+    @RequestMapping("api/rate/{code}")
     public Object rate(@PathVariable("code") String code) throws Exception {
         log.info("rate code [{}]", code);
         return rateWithDate(code, formatter.format(new Date()));
